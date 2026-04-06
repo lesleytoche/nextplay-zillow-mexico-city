@@ -601,20 +601,24 @@
     border-bottom-color: var(--np-gold);
     color: var(--np-gold);
   }
+  .speaker-card-wrapper {
+    position: relative;
+  }
   .speaker-bio {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease, padding 0.5s ease;
-    background: rgba(0,0,0,0.95);
+    background: linear-gradient(135deg, #1a0a2e, #16213e);
     border-radius: 0 0 20px 20px;
+    margin-top: -20px;
     padding: 0 24px;
-    font-size: 14px;
-    line-height: 1.6;
-    color: rgba(255,255,255,0.8);
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
   }
   .speaker-bio.active {
-    max-height: 300px;
-    padding: 20px 24px;
+    max-height: 400px;
+    padding: 28px 24px 24px;
   }
   .speaker-bio-toggle {
     cursor: pointer;
@@ -1451,11 +1455,13 @@
     <p class="section-subtitle">Industry leaders sharing insights on career growth and the future of work.</p>
   </div>
   <div class="speakers-grid">
-    <div class="speaker-card">
-      <img src="/images/speakers.jpg" alt="Sofia Vilchis, Data Scientist at Zillow" class="speaker-photo">
-      <div class="speaker-info">
-        <div class="speaker-name speaker-bio-toggle" onclick="document.getElementById('sofiaBio').classList.toggle('active')"><a href="https://www.linkedin.com/in/sofia-vilchis-606690225/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Sofia Vilchis</a></div>
-        <div class="speaker-role">Data Scientist, Zillow</div>
+    <div class="speaker-card-wrapper">
+      <div class="speaker-card" onclick="document.getElementById('sofiaBio').classList.toggle('active')">
+        <img src="/images/speakers.jpg" alt="Sofia Vilchis, Data Scientist at Zillow" class="speaker-photo">
+        <div class="speaker-info">
+          <div class="speaker-name"><a href="https://www.linkedin.com/in/sofia-vilchis-606690225/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Sofia Vilchis</a></div>
+          <div class="speaker-role">Data Scientist, Zillow</div>
+        </div>
       </div>
       <div class="speaker-bio" id="sofiaBio">
         Sofia Vilchis is a Data Scientist at Zillow, where she specializes in product analytics and A/B experimentation to improve the home-buying experience through data-driven decisions. She holds a degree in Nanotechnology Engineering and a Master's in Data Science from ITESO, and has over five years of experience in the data industry, including roles in fintech focused on risk modeling, NLP, and advanced analytics.
