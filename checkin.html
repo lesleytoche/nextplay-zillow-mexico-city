@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Nextplay LIVE — Check-In Scanner</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0D0D0D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+<style>
+  :root {
+    --red: #D94130;
+    --dark: #0D0D0D;
+    --green: #4CAF50;
+    --yellow: #FFC107;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--dark);
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  .header {
+    padding: 20px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: rgba(13,13,13,0.95);
+    backdrop-filter: blur(20px);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .header-logo {
+    font-weight: 900; font-size: 18px;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .header-logo span { color: var(--red); }
+  .header-badge {
+    background: rgba(217,65,48,0.15);
+    color: var(--red);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex; gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .stat-pill {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 20px;
+    min-width: 120px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .stat-pill .num {
+    font-size: 24px; font-weight: 900;
+    line-height: 1;
+  }
+  .stat-pill .label {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+  }
+  .stat-pill.success .num { color: var(--green); }
+  .stat-pill.warning .num { color: var(--yellow); }
+
+  /* Main content */
+  .main { padding: 24px; max-width: 600px; margin: 0 auto; }
+
+  /* Scanner */
+  .scanner-container {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .scanner-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .scanner-header h2 {
+    font-size: 16px; font-weight: 700;
+  }
+  .scanner-status {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600;
+    color: rgba(255,255,255,0.5);
+  }
+  .scanner-status .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+  .scanner-status.inactive .dot { background: #666; animation: none; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  #qr-reader {
+    width: 100%;
+    background: #000;
+  }
+  #qr-reader video { border-radius: 0 !important; }
+  #qr-reader__scan_region { min-height: 300px; }
+  /* Hide the default UI from the QR library */
+  #qr-reader__dashboard { padding: 12px 16px !important; }
+  #qr-reader__dashboard_section_swaplink { display: none !important; }
+
+  .scanner-controls {
+    padding: 16px 24px;
+    display: flex; gap: 12px;
+  }
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border: none; border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+  .btn-primary {
+    background: var(--red); color: #fff;
+  }
+  .btn-primary:hover { box-shadow: 0 4px 20px rgba(217,65,48,0.4); }
+  .btn-secondary {
+    background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7);
+    border: 1px solid var(--border);
+  }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Manual entry */
+  .manual-entry {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .manual-entry h3 {
+    font-size: 14px; font-weight: 700;
+    margin-bottom: 12px;
+    color: rgba(255,255,255,0.7);
+  }
+  .manual-input-row {
+    display: flex; gap: 12px;
+  }
+  .manual-input-row input {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 15px; font-family: 'Inter', sans-serif;
+    color: #fff; outline: none;
+  }
+  .manual-input-row input:focus {
+    border-color: var(--red);
+  }
+  .manual-input-row input::placeholder { color: rgba(255,255,255,0.25); }
+  .manual-input-row .btn { flex: 0 0 auto; padding: 12px 24px; }
+
+  /* Result card */
+  .result-card {
+    border-radius: 20px;
+    padding: 32px 24px;
+    margin-bottom: 24px;
+    text-align: center;
+    display: none;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .result-card.active { display: block; }
+  .result-card.success {
+    background: rgba(76,175,80,0.08);
+    border: 1px solid rgba(76,175,80,0.2);
+  }
+  .result-card.duplicate {
+    background: rgba(255,193,7,0.08);
+    border: 1px solid rgba(255,193,7,0.2);
+  }
+  .result-card.error {
+    background: rgba(217,65,48,0.08);
+    border: 1px solid rgba(217,65,48,0.2);
+  }
+  .result-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 32px;
+  }
+  .result-card.success .result-icon { background: rgba(76,175,80,0.15); }
+  .result-card.duplicate .result-icon { background: rgba(255,193,7,0.15); }
+  .result-card.error .result-icon { background: rgba(217,65,48,0.15); }
+  .result-name {
+    font-size: 22px; font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .result-detail {
+    font-size: 14px; color: rgba(255,255,255,0.5);
+    margin-bottom: 2px;
+  }
+  .result-message {
+    font-size: 13px; font-weight: 600;
+    margin-top: 12px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: inline-block;
+  }
+  .result-card.success .result-message { background: rgba(76,175,80,0.15); color: var(--green); }
+  .result-card.duplicate .result-message { background: rgba(255,193,7,0.15); color: var(--yellow); }
+  .result-card.error .result-message { background: rgba(217,65,48,0.15); color: var(--red); }
+  .result-dismiss {
+    margin-top: 16px;
+    background: none; border: 1px solid var(--border);
+    color: rgba(255,255,255,0.6);
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Recent scans */
+  .recent-scans {
+    margin-top: 24px;
+  }
+  .recent-scans h3 {
+    font-size: 14px; font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .scan-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+  .scan-item .indicator {
+    width: 10px; height: 10px;
+    border-radius: 50%; flex-shrink: 0;
+  }
+  .scan-item .indicator.ok { background: var(--green); }
+  .scan-item .indicator.dup { background: var(--yellow); }
+  .scan-item .indicator.err { background: var(--red); }
+  .scan-item .info { flex: 1; min-width: 0; }
+  .scan-item .info .name {
+    font-size: 14px; font-weight: 700;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .scan-item .info .meta {
+    font-size: 12px; color: rgba(255,255,255,0.4);
+  }
+  .scan-item .time {
+    font-size: 11px; color: rgba(255,255,255,0.3);
+    flex-shrink: 0;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: rgba(255,255,255,0.3);
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">NEXT<span>PLAY</span> CHECK-IN</div>
+  <div class="header-badge">Staff Only</div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-pill success">
+    <div class="num" id="statCheckedIn">0</div>
+    <div class="label">Checked In</div>
+  </div>
+  <div class="stat-pill warning">
+    <div class="num" id="statDuplicates">0</div>
+    <div class="label">Duplicates</div>
+  </div>
+  <div class="stat-pill">
+    <div class="num" id="statTotal">0</div>
+    <div class="label">Total Scans</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- Result Card -->
+  <div class="result-card" id="resultCard">
+    <div class="result-icon" id="resultIcon"></div>
+    <div class="result-name" id="resultName"></div>
+    <div class="result-detail" id="resultCompany"></div>
+    <div class="result-detail" id="resultTitle"></div>
+    <div class="result-message" id="resultMessage"></div>
+    <br>
+    <button class="result-dismiss" onclick="dismissResult()">Scan Next</button>
+  </div>
+
+  <!-- Scanner -->
+  <div class="scanner-container" id="scannerContainer">
+    <div class="scanner-header">
+      <h2>QR Scanner</h2>
+      <div class="scanner-status" id="scannerStatus">
+        <span class="dot"></span>
+        <span id="scannerStatusText">Ready</span>
+      </div>
+    </div>
+    <div id="qr-reader"></div>
+    <div class="scanner-controls">
+      <button class="btn btn-primary" id="btnStart" onclick="startScanner()">Start Camera</button>
+      <button class="btn btn-secondary" id="btnStop" onclick="stopScanner()" disabled>Stop</button>
+    </div>
+  </div>
+
+  <!-- Manual Entry -->
+  <div class="manual-entry">
+    <h3>Or check in by email</h3>
+    <div class="manual-input-row">
+      <input type="email" id="manualEmail" placeholder="attendee@email.com" onkeydown="if(event.key==='Enter') manualCheckIn()">
+      <button class="btn btn-primary" onclick="manualCheckIn()">Check In</button>
+    </div>
+  </div>
+
+  <!-- Admin Tools -->
+  <div class="manual-entry" style="margin-bottom: 24px;">
+    <h3>Admin Tools</h3>
+    <button class="btn btn-primary" onclick="exportCSV()" id="btnExport" style="width: 100%; background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: rgba(255,255,255,0.7);">
+      ⬇ Export RSVP List (CSV)
+    </button>
+    <p style="font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 8px; text-align: center;">
+      Download full attendee list with check-in status
+    </p>
+  </div>
+
+  <!-- Recent Scans -->
+  <div class="recent-scans">
+    <h3>Recent Check-Ins</h3>
+    <div id="recentList">
+      <div class="empty-state">No check-ins yet. Start scanning!</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let html5QrCode = null;
+  let isScanning = false;
+  let stats = { checkedIn: 0, duplicates: 0, total: 0 };
+  let recentScans = [];
+
+  function startScanner() {
+    if (isScanning) return;
+    const config = { fps: 10, qrbox: { width: 250, height: 250 }, aspectRatio: 1.0 };
+
+    html5QrCode = new Html5Qrcode("qr-reader");
+    html5QrCode.start(
+      { facingMode: "environment" },
+      config,
+      onScanSuccess,
+      () => {} // ignore scan failures
+    ).then(() => {
+      isScanning = true;
+      document.getElementById('btnStart').disabled = true;
+      document.getElementById('btnStop').disabled = false;
+      updateScannerStatus(true);
+    }).catch(err => {
+      console.error("Camera error:", err);
+      alert("Could not access camera. Please grant camera permissions and try again.");
+    });
+  }
+
+  function stopScanner() {
+    if (!isScanning || !html5QrCode) return;
+    html5QrCode.stop().then(() => {
+      isScanning = false;
+      document.getElementById('btnStart').disabled = false;
+      document.getElementById('btnStop').disabled = true;
+      updateScannerStatus(false);
+    });
+  }
+
+  function updateScannerStatus(active) {
+    const el = document.getElementById('scannerStatus');
+    const text = document.getElementById('scannerStatusText');
+    if (active) {
+      el.classList.remove('inactive');
+      text.textContent = 'Scanning...';
+    } else {
+      el.classList.add('inactive');
+      text.textContent = 'Stopped';
+    }
+  }
+
+  async function onScanSuccess(decodedText) {
+    // Pause scanning while we process
+    if (html5QrCode && isScanning) {
+      html5QrCode.pause(true);
+    }
+
+    try {
+      const qrData = JSON.parse(decodedText);
+      await processCheckIn(qrData);
+    } catch (e) {
+      showResult('error', 'Invalid QR', '', '', 'Could not read QR code data');
+    }
+  }
+
+  async function manualCheckIn() {
+    const email = document.getElementById('manualEmail').value.trim();
+    if (!email) return;
+    document.getElementById('manualEmail').value = '';
+    await processCheckIn({ email: email, name: '', token: '' });
+  }
+
+  async function processCheckIn(qrData) {
+    stats.total++;
+    updateStats();
+
+    try {
+      const res = await fetch('/.netlify/functions/checkin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(qrData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        if (data.alreadyCheckedIn) {
+          stats.duplicates++;
+          showResult('duplicate',
+            data.attendee.name || qrData.name || qrData.email,
+            data.attendee.company,
+            data.attendee.jobTitle,
+            'Already checked in'
+          );
+          addRecentScan(data.attendee.name || qrData.email, 'dup');
+        } else {
+          stats.checkedIn++;
+          showResult('success',
+            data.attendee.name || qrData.name || qrData.email,
+            data.attendee.company,
+            data.attendee.jobTitle,
+            'Check-in successful!'
+          );
+          addRecentScan(data.attendee.name || qrData.email, 'ok');
+        }
+      } else {
+        showResult('error',
+          qrData.name || qrData.email || 'Unknown',
+          '', '',
+          data.message || 'Check-in failed'
+        );
+        addRecentScan(qrData.email || 'Unknown', 'err');
+      }
+    } catch (err) {
+      showResult('error', qrData.email || 'Unknown', '', '', 'Network error. Please try again.');
+      addRecentScan(qrData.email || 'Unknown', 'err');
+    }
+
+    updateStats();
+  }
+
+  function showResult(type, name, company, title, message) {
+    const card = document.getElementById('resultCard');
+    card.className = `result-card active ${type}`;
+    document.getElementById('resultIcon').textContent =
+      type === 'success' ? '✓' : type === 'duplicate' ? '⚠' : '✕';
+    document.getElementById('resultName').textContent = name;
+    document.getElementById('resultCompany').textContent = company || '';
+    document.getElementById('resultTitle').textContent = title || '';
+    document.getElementById('resultMessage').textContent = message;
+
+    // Play a sound or vibrate on mobile
+    if (navigator.vibrate) {
+      navigator.vibrate(type === 'success' ? [100] : type === 'duplicate' ? [100, 50, 100] : [300]);
+    }
+  }
+
+  function dismissResult() {
+    document.getElementById('resultCard').className = 'result-card';
+    // Resume scanning
+    if (html5QrCode && isScanning) {
+      try { html5QrCode.resume(); } catch(e) {}
+    }
+  }
+
+  function updateStats() {
+    document.getElementById('statCheckedIn').textContent = stats.checkedIn;
+    document.getElementById('statDuplicates').textContent = stats.duplicates;
+    document.getElementById('statTotal').textContent = stats.total;
+  }
+
+  function addRecentScan(name, type) {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    recentScans.unshift({ name, type, time: timeStr });
+    if (recentScans.length > 20) recentScans.pop();
+    renderRecentScans();
+  }
+
+  async function exportCSV() {
+    const btn = document.getElementById('btnExport');
+    btn.disabled = true;
+    btn.textContent = 'Exporting...';
+    try {
+      const res = await fetch('/.netlify/functions/export');
+      if (!res.ok) throw new Error('Export failed');
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const disposition = res.headers.get('Content-Disposition') || '';
+      const match = disposition.match(/filename="(.+)"/);
+      a.download = match ? match[1] : `nextplay-rsvps-${new Date().toISOString().slice(0,10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      alert('Failed to export CSV. Please try again.');
+      console.error('Export error:', err);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '⬇ Export RSVP List (CSV)';
+    }
+  }
+
+  function renderRecentScans() {
+    const container = document.getElementById('recentList');
+    if (recentScans.length === 0) {
+      container.innerHTML = '<div class="empty-state">No check-ins yet. Start scanning!</div>';
+      return;
+    }
+    container.innerHTML = recentScans.map(s => `
+      <div class="scan-item">
+        <div class="indicator ${s.type}"></div>
+        <div class="info">
+          <div class="name">${s.name}</div>
+          <div class="meta">${s.type === 'ok' ? 'Checked in' : s.type === 'dup' ? 'Duplicate' : 'Error'}</div>
+        </div>
+        <div class="time">${s.time}</div>
+      </div>
+    `).join('');
+  }
+</script>
+</body>
+</html>

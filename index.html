@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nextplay LIVE Presented by Zillow | Mexico City</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --np-red: #D94130;
+    --np-dark: #0D0D0D;
+    --np-cream: #FAF7F2;
+    --np-gold: #D4A847;
+    --zillow-blue: #006AFF;
+    --mexico-pink: #E4007C;
+    --mexico-green: #006847;
+    --mexico-terracotta: #C65D3E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--np-dark);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  /* ========== NAV ========== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 48px;
+    background: rgba(13,13,13,0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .nav-logo span { color: var(--np-red); }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none; font-size: 14px;
+    font-weight: 500; letter-spacing: 0.5px;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: #fff; }
+  .btn-rsvp {
+    background: var(--np-red);
+    color: #fff;
+    padding: 12px 32px;
+    border: none; border-radius: 50px;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .btn-rsvp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(217,65,48,0.4);
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; align-items: flex-end;
+    padding: 0 48px 80px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(13,13,13,0.1) 0%, rgba(13,13,13,0.3) 50%, rgba(13,13,13,0.95) 100%),
+      linear-gradient(135deg, #1a0a2e 0%, #16213e 25%, #0a3d62 50%, #1a0a2e 100%);
+    background-size: cover;
+  }
+  /* Animated gradient overlay for Mexico City vibe */
+  .hero-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(228,0,124,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 30%, rgba(0,106,255,0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(212,168,71,0.1) 0%, transparent 50%);
+    animation: heroGlow 8s ease-in-out infinite alternate;
+  }
+  @keyframes heroGlow {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+
+  /* Decorative geometric elements inspired by Mexican art */
+  .geo-pattern {
+    position: absolute; top: 0; right: 0;
+    width: 600px; height: 600px;
+    opacity: 0.06;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.5) 20px, rgba(255,255,255,0.5) 21px),
+      repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(255,255,255,0.5) 20px, rgba(255,255,255,0.5) 21px);
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 8px 20px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50px;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--np-gold);
+    margin-bottom: 28px;
+    backdrop-filter: blur(10px);
+  }
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    background: var(--np-red);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.5); }
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 900;
+    line-height: 1.0;
+    margin-bottom: 24px;
+  }
+  .hero-title .accent { color: var(--np-red); }
+  .hero-title .city {
+    display: block;
+    background: linear-gradient(135deg, var(--np-gold), #f0d78c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-meta {
+    display: flex; gap: 40px; margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 15px; color: rgba(255,255,255,0.8);
+  }
+  .hero-meta-item svg { opacity: 0.6; flex-shrink: 0; }
+  .hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .btn-hero-rsvp {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--np-red);
+    color: #fff;
+    padding: 18px 44px;
+    border: none; border-radius: 60px;
+    font-size: 16px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-hero-rsvp::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .btn-hero-rsvp:hover::before { opacity: 1; }
+  .btn-hero-rsvp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(217,65,48,0.5);
+  }
+  .btn-hero-rsvp svg {
+    transition: transform 0.3s;
+  }
+  .btn-hero-rsvp:hover svg { transform: translateX(4px); }
+  .btn-secondary {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none; font-size: 14px;
+    font-weight: 500; letter-spacing: 0.5px;
+    padding: 18px 32px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 60px;
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover {
+    border-color: rgba(255,255,255,0.5);
+    color: #fff;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .scroll-indicator {
+    position: absolute; bottom: 32px; right: 48px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.4);
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scrollBounce 2s ease-in-out infinite;
+  }
+  @keyframes scrollBounce {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.5); opacity: 0.3; }
+  }
+
+  /* ========== MARQUEE ========== */
+  .marquee-section {
+    padding: 20px 0;
+    background: var(--np-red);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-item {
+    display: inline-flex; align-items: center; gap: 24px;
+    padding: 0 24px;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: #fff;
+  }
+  .marquee-item .sep {
+    width: 6px; height: 6px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ========== ABOUT SECTION ========== */
+  .about {
+    padding: 120px 48px;
+    background: var(--np-cream);
+    color: var(--np-dark);
+    overflow: hidden;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  .about-label {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--np-red);
+    margin-bottom: 20px;
+  }
+  .about-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 28px;
+  }
+  .about-title em {
+    font-style: italic;
+    color: var(--np-red);
+  }
+  .about-text {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .video-recaps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .video-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 10px;
+  }
+  .about-image-container {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #1a0a2e, #0a3d62);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-image-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    text-align: center;
+  }
+  .about-image-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center; color: #fff;
+    padding: 40px;
+  }
+  .about-image-overlay .stat {
+    font-size: 72px; font-weight: 900;
+    background: linear-gradient(135deg, var(--np-gold), #f0d78c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .about-image-overlay .stat-label {
+    font-size: 16px; font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    position: absolute; bottom: -40px; right: -40px;
+  }
+  .stat-card {
+    background: #fff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    text-align: center;
+  }
+  .stat-card .num {
+    font-size: 32px; font-weight: 900;
+    color: var(--np-red);
+  }
+  .stat-card .label {
+    font-size: 12px; font-weight: 600;
+    color: #888;
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ========== FEATURES SECTION ========== */
+  .features {
+    padding: 120px 48px;
+    background: var(--np-dark);
+  }
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 72px;
+  }
+  .section-label {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--np-red);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .section-title em { font-style: italic; color: var(--np-red); }
+  .section-subtitle {
+    font-size: 17px; line-height: 1.7;
+    color: rgba(255,255,255,0.5);
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .feature-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 40px 32px;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--np-red), var(--np-gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .feature-card:hover::before { transform: scaleX(1); }
+  .feature-card:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.1);
+    transform: translateY(-4px);
+  }
+  .feature-icon {
+    width: 52px; height: 52px;
+    background: rgba(217,65,48,0.1);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+    color: var(--np-red);
+  }
+  .feature-card h3 {
+    font-size: 18px; font-weight: 700;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+  .feature-card p {
+    font-size: 15px; line-height: 1.7;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ========== CTA BANNER ========== */
+  .cta-banner {
+    padding: 100px 48px;
+    background: linear-gradient(135deg, var(--np-red), #a82d20);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 50%, rgba(255,255,255,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(0,0,0,0.15) 0%, transparent 50%);
+  }
+  .cta-banner .cta-content { position: relative; z-index: 2; }
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 900;
+    font-style: italic;
+    line-height: 1.3;
+    max-width: 800px;
+    margin: 0 auto 36px;
+  }
+  .cta-title .partner-name { color: var(--np-gold); font-style: normal; }
+  .btn-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #fff;
+    color: var(--np-red);
+    padding: 18px 44px;
+    border: none; border-radius: 60px;
+    font-size: 15px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.4s;
+  }
+  .btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  /* ========== COUNTDOWN ========== */
+  .countdown-section {
+    padding: 80px 48px;
+    background: var(--np-cream);
+    text-align: center;
+    color: var(--np-dark);
+  }
+  .countdown-label {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--np-red);
+    margin-bottom: 32px;
+  }
+  .countdown {
+    display: flex; justify-content: center; gap: 24px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .countdown-unit {
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .countdown-num {
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 900;
+    font-family: 'Inter', sans-serif;
+    line-height: 1;
+    color: var(--np-dark);
+  }
+  .countdown-text {
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: #999; margin-top: 8px;
+  }
+  .countdown-sep {
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 300; color: #ccc;
+    line-height: 1;
+  }
+
+  /* ========== SPEAKERS ========== */
+  .speakers {
+    padding: 120px 48px;
+    background: var(--np-dark);
+  }
+  .speakers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .speaker-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    cursor: pointer;
+    transition: transform 0.4s;
+  }
+  .speaker-card:hover { transform: translateY(-6px); }
+  .speaker-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 80px; opacity: 0.06;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+  }
+  .speaker-photo {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .speaker-tba-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(214, 52, 71, 0.85);
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+  .speaker-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 32px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+  }
+  .speaker-name {
+    font-size: 22px; font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .speaker-role {
+    font-size: 14px; color: rgba(255,255,255,0.6);
+    margin-bottom: 10px;
+  }
+  .speaker-tag {
+    display: inline-block;
+    padding: 5px 14px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50px;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--np-gold);
+  }
+
+  /* ========== ENTERTAINMENT ========== */
+  .entertainment {
+    padding: 120px 48px;
+    background: var(--np-cream);
+    color: var(--np-dark);
+  }
+  .ent-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .ent-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #2a1a3e, #1a2a4e);
+    cursor: pointer;
+    transition: transform 0.4s;
+  }
+  .ent-card:hover { transform: scale(1.02); }
+  .ent-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.06);
+    font-size: 64px;
+  }
+  .ent-photo {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .ent-tba-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(214, 52, 71, 0.85);
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+  .ent-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 28px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+    color: #fff;
+  }
+  .ent-name {
+    font-size: 20px; font-weight: 800;
+  }
+  .ent-role {
+    font-size: 13px; color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+  }
+
+  /* ========== PARTNER ========== */
+  .partner {
+    padding: 120px 48px;
+    background: var(--np-dark);
+    position: relative;
+    overflow: hidden;
+  }
+  .partner-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; max-width: 1200px; margin: 0 auto;
+    align-items: center;
+  }
+  .partner-visual {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .partner-photo {
+    width: 100%;
+    border-radius: 20px;
+    display: block;
+    object-fit: cover;
+  }
+  .partner-logo-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+  }
+  .partner-logo-bar img {
+    height: 32px;
+    width: auto;
+  }
+  .partner-logo-bar span {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .partner-content .section-label { text-align: left; }
+  .partner-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+  .partner-title span { color: var(--zillow-blue); }
+  .partner-text {
+    font-size: 16px; line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ========== VENUE ========== */
+  .venue {
+    padding: 120px 48px;
+    background: var(--np-cream);
+    color: var(--np-dark);
+  }
+  .venue-photo {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 48px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .venue-photo img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+  }
+  .venue-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 60px; max-width: 1200px; margin: 0 auto;
+    align-items: start;
+  }
+  .venue-map {
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+    background: #ddd;
+    position: relative;
+  }
+  .venue-map iframe {
+    width: 100%; height: 100%; border: 0;
+  }
+  .venue-details h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 900;
+    margin-bottom: 24px;
+  }
+  .venue-info-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .venue-info-item:last-child { border-bottom: none; }
+  .venue-info-icon {
+    width: 44px; height: 44px;
+    background: rgba(217,65,48,0.08);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--np-red);
+  }
+  .venue-info-label {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: #999;
+    margin-bottom: 4px;
+  }
+  .venue-info-value {
+    font-size: 17px; font-weight: 600;
+    color: var(--np-dark);
+  }
+
+  /* ========== FINAL CTA ========== */
+  .final-cta {
+    padding: 140px 48px;
+    background: var(--np-dark);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 30% 50%, rgba(217,65,48,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 70% 50%, rgba(212,168,71,0.06) 0%, transparent 50%);
+  }
+  .final-cta-content { position: relative; z-index: 2; }
+  .final-cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 900;
+    line-height: 1.1;
+    max-width: 800px;
+    margin: 0 auto 20px;
+  }
+  .final-cta-title em { font-style: italic; color: var(--np-red); }
+  .final-cta-sub {
+    font-size: 18px; color: rgba(255,255,255,0.5);
+    margin-bottom: 48px;
+  }
+
+  /* ========== RSVP MODAL ========== */
+  .rsvp-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+
+  .rsvp-modal-overlay.active {
+    display: flex;
+  }
+
+  .rsvp-modal {
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(217, 65, 48, 0.3);
+    border-radius: 20px;
+    padding: 48px;
+    max-width: 700px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+    position: relative;
+  }
+
+  .rsvp-modal-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    font-size: 28px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+  }
+
+  .rsvp-modal-close:hover {
+    color: #fff;
+  }
+
+  .rsvp-modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+
+  .rsvp-modal-subtitle {
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 32px;
+    font-size: 15px;
+  }
+
+  .rsvp-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .rsvp-form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rsvp-form-group.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .rsvp-form label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .rsvp-form label .required {
+    color: var(--np-red);
+  }
+
+  .rsvp-form input,
+  .rsvp-form select,
+  .rsvp-form textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    padding: 12px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+
+  .rsvp-form input:focus,
+  .rsvp-form select:focus,
+  .rsvp-form textarea:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(217, 65, 48, 0.5);
+    box-shadow: 0 0 0 3px rgba(217, 65, 48, 0.1);
+  }
+
+  .rsvp-form input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .rsvp-form select option {
+    background: #1a1a1a;
+    color: #fff;
+  }
+
+  .rsvp-form textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .rsvp-form-submit {
+    grid-column: 1 / -1;
+    background: var(--np-red);
+    color: #fff;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s;
+    margin-top: 12px;
+  }
+
+  .rsvp-form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(217, 65, 48, 0.4);
+  }
+
+  .rsvp-form-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .rsvp-success {
+    display: none;
+    text-align: center;
+  }
+  .rsvp-success.active {
+    display: block;
+  }
+  .rsvp-success-icon {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(76,175,80,0.2), rgba(76,175,80,0.05));
+    border: 2px solid rgba(76,175,80,0.4);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 40px;
+    animation: scaleIn 0.4s ease;
+  }
+  @keyframes scaleIn {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .rsvp-success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .rsvp-success-subtitle {
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  .rsvp-event-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: left;
+    margin-bottom: 24px;
+  }
+  .rsvp-event-card-header {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--np-red);
+    margin-bottom: 16px;
+  }
+  .rsvp-event-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .rsvp-event-detail:last-child {
+    border-bottom: none;
+  }
+  .rsvp-event-detail-icon {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .rsvp-event-detail-content {
+    flex: 1;
+  }
+  .rsvp-event-detail-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 2px;
+  }
+  .rsvp-event-detail-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .rsvp-success-note {
+    background: rgba(217,65,48,0.08);
+    border: 1px solid rgba(217,65,48,0.15);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+    margin-bottom: 24px;
+    text-align: left;
+  }
+  .rsvp-success-note strong {
+    color: var(--np-red);
+  }
+  .rsvp-success-close {
+    background: var(--np-red);
+    color: #fff;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+  }
+  .rsvp-success-close:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(217, 65, 48, 0.4);
+  }
+
+  .rsvp-error {
+    display: none;
+    background: rgba(217, 65, 48, 0.1);
+    border: 1px solid rgba(217, 65, 48, 0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: #ff9999;
+    font-size: 14px;
+    grid-column: 1 / -1;
+  }
+
+  .rsvp-error.active {
+    display: block;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    padding: 48px;
+    background: #000;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-logo {
+    font-weight: 900; font-size: 18px;
+    letter-spacing: 3px; text-transform: uppercase;
+  }
+  .footer-logo span { color: var(--np-red); }
+  .footer-copy {
+    font-size: 13px; color: rgba(255,255,255,0.4);
+  }
+  .footer-socials {
+    display: flex; gap: 20px;
+  }
+  .footer-socials a {
+    color: rgba(255,255,255,0.4);
+    transition: color 0.3s;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .footer-socials a:hover { color: #fff; }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 0 24px 60px; }
+    .hero-meta { gap: 20px; }
+    .about, .features, .entertainment, .speakers, .partner, .venue, .final-cta, .cta-banner, .countdown-section {
+      padding: 80px 24px;
+    }
+    .about-grid, .partner-grid, .venue-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .features-grid, .ent-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .stat-grid { position: static; margin-top: 24px; grid-template-columns: repeat(4, 1fr); }
+    .about-visual { overflow: hidden; }
+    .about-image-container iframe { width: 100% !important; }
+    .scroll-indicator { display: none; }
+    footer { padding: 32px 24px; }
+    .rsvp-modal {
+      padding: 36px 24px;
+      max-width: 90vw;
+    }
+    .rsvp-form {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 600px) {
+    .features-grid, .ent-grid, .speakers-grid {
+      grid-template-columns: 1fr;
+    }
+    .stat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
+    .about-title { font-size: 28px; }
+    .about-text { font-size: 15px; }
+    .countdown { gap: 12px; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .btn-hero-rsvp, .btn-secondary { text-align: center; justify-content: center; }
+    .rsvp-modal {
+      padding: 24px;
+    }
+    .rsvp-modal-title {
+      font-size: 28px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav>
+  <a href="https://nextplayevents.com" target="_blank" class="nav-logo" style="text-decoration:none;color:inherit;">NEXT<span>PLAY</span> LIVE</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#features">Experience</a>
+    <a href="#speakers">Speakers</a>
+    <a href="#venue">Venue</a>
+    <a href="#rsvp" class="btn-rsvp" onclick="openRSVP(event)">RSVP Now</a>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="geo-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      Nextplay LIVE &mdash; Mexico City 2026
+    </div>
+    <h1 class="hero-title">
+      Nextplay <span class="accent">LIVE</span><br>
+      Presented by Zillow<br>
+      <span class="city">Mexico City</span>
+    </h1>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        April 16, 2026
+      </div>
+      <div class="hero-meta-item">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        6:00 PM &ndash; 10:00 PM
+      </div>
+      <div class="hero-meta-item">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Terraza Timberland — Mexico City
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="#rsvp" class="btn-hero-rsvp" onclick="openRSVP(event)">
+        RSVP Now
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#about" class="btn-secondary">Learn More</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ========== MARQUEE ========== -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Live DJ <span class="sep"></span></span>
+    <span class="marquee-item">Myth Buster Keynote <span class="sep"></span></span>
+    <span class="marquee-item">Live Art <span class="sep"></span></span>
+    <span class="marquee-item">Complimentary Food &amp; Drinks <span class="sep"></span></span>
+    <span class="marquee-item">Career Networking <span class="sep"></span></span>
+    <span class="marquee-item">Live Performer <span class="sep"></span></span>
+    <span class="marquee-item">#TheySayWeDontExist <span class="sep"></span></span>
+    <span class="marquee-item">Meet Zillow's Hiring Team <span class="sep"></span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">Live DJ <span class="sep"></span></span>
+    <span class="marquee-item">Myth Buster Keynote <span class="sep"></span></span>
+    <span class="marquee-item">Live Art <span class="sep"></span></span>
+    <span class="marquee-item">Complimentary Food &amp; Drinks <span class="sep"></span></span>
+    <span class="marquee-item">Career Networking <span class="sep"></span></span>
+    <span class="marquee-item">Live Performer <span class="sep"></span></span>
+    <span class="marquee-item">#TheySayWeDontExist <span class="sep"></span></span>
+    <span class="marquee-item">Meet Zillow's Hiring Team <span class="sep"></span></span>
+  </div>
+</div>
+
+<!-- ========== ABOUT ========== -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div>
+      <div class="about-label">About the Event</div>
+      <h2 class="about-title">Where Culture, Career &amp; <em>Community</em> Collide</h2>
+      <p class="about-text">
+        Nextplay LIVE is an experiential networking mixer backed by a global network of 40,000+ tech professionals. We bring together top talent with career opportunities at leading companies. Now in its 3rd year in Mexico City, this edition presented by Zillow features an unforgettable evening of executive talks, live entertainment, complimentary food and drinks, and direct networking with Zillow's hiring teams.
+      </p>
+      <p class="about-text">
+        Whether you're exploring new career paths or expanding your professional network, this is where authentic connections happen. This event is open to all.
+      </p>
+    </div>
+    <div class="about-visual">
+      <div class="video-recaps">
+        <div class="video-label">Event Recap</div>
+        <div class="about-image-container" style="aspect-ratio: 16/9; background: #000;">
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/pDly82FQG6s?rel=0"
+            title="Nextplay LIVE Recap"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="position: absolute; inset: 0; width: 100%; height: 100%;">
+          </iframe>
+        </div>
+        <div class="video-label" style="margin-top: 20px;">Mexico City Recap</div>
+        <div class="about-image-container" style="aspect-ratio: 16/9; background: #000;">
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/kCsoABUJbLQ?rel=0"
+            title="Nextplay LIVE Mexico City Recap"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="position: absolute; inset: 0; width: 100%; height: 100%;">
+          </iframe>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="num">40K+</div>
+          <div class="label">Global Network</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">60+</div>
+          <div class="label">Events Worldwide</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">100+</div>
+          <div class="label">Brand Partners</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">14</div>
+          <div class="label">Cities</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FEATURES ========== -->
+<section class="features" id="features">
+  <div class="section-header">
+    <div class="section-label">The Experience</div>
+    <h2 class="section-title">One Night. <em>Endless</em> Possibilities.</h2>
+    <p class="section-subtitle">An evening designed to connect, inspire, and celebrate the diverse tech community in Mexico City.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <h3>Career Networking</h3>
+      <p>Connect directly with Zillow's hiring managers and recruiters in an authentic, relaxed environment.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
+      </div>
+      <h3>Myth Buster Keynote</h3>
+      <p>Hear from Zillow leadership in an intimate 20-minute session on career growth and industry insights.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <h3>Live DJ</h3>
+      <p>A curated soundtrack to keep the energy flowing all night long with a live DJ set.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+      </div>
+      <h3>Live Art</h3>
+      <p>Watch a live painting come to life throughout the evening, capturing the energy and spirit of the night.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>
+      </div>
+      <h3>Food &amp; Drinks</h3>
+      <p>Enjoy complimentary food and signature drinks inspired by Mexico City's vibrant culinary scene.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <h3>Live Performer</h3>
+      <p>Experience a special live performance that blends music, culture, and the unmistakable Nextplay energy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA BANNER ========== -->
+<section class="cta-banner">
+  <div class="cta-content">
+    <h2 class="cta-title">Come build community and celebrate culture while exploring impactful career opportunities with <span class="partner-name">Zillow</span>!</h2>
+    <a href="#rsvp" class="btn-cta" onclick="openRSVP(event)">
+      RSVP Now
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ========== COUNTDOWN ========== -->
+<section class="countdown-section">
+  <div class="countdown-label">Counting Down To</div>
+  <div class="countdown" id="countdown">
+    <div class="countdown-unit">
+      <div class="countdown-num" id="cd-days">00</div>
+      <div class="countdown-text">Days</div>
+    </div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit">
+      <div class="countdown-num" id="cd-hours">00</div>
+      <div class="countdown-text">Hours</div>
+    </div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit">
+      <div class="countdown-num" id="cd-mins">00</div>
+      <div class="countdown-text">Minutes</div>
+    </div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit">
+      <div class="countdown-num" id="cd-secs">00</div>
+      <div class="countdown-text">Seconds</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SPEAKERS ========== -->
+<section class="speakers" id="speakers">
+  <div class="section-header">
+    <div class="section-label">Speakers &amp; Host</div>
+    <h2 class="section-title">Meet the <em>Voices</em></h2>
+    <p class="section-subtitle">Industry leaders sharing insights on career growth and the future of work.</p>
+  </div>
+  <div class="speakers-grid">
+    <div class="speaker-card">
+      <img src="/images/speakers.jpg" alt="Speakers at Nextplay event" class="speaker-photo">
+      <div class="speaker-info">
+        <div class="speaker-name">Speakers</div>
+        <div class="speaker-role">Industry leaders &amp; Zillow executives</div>
+      </div>
+    </div>
+    <div class="speaker-card">
+      <img src="/images/host-mc.jpg" alt="Host at Nextplay event" class="speaker-photo">
+      <div class="speaker-info">
+        <div class="speaker-name">Event Host</div>
+        <div class="speaker-role">Your MC for the evening</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ENTERTAINMENT ========== -->
+<section class="entertainment">
+  <div class="section-header">
+    <div class="section-label">Entertainment</div>
+    <h2 class="section-title" style="color: var(--np-dark);">The <em>Lineup</em></h2>
+    <p class="section-subtitle" style="color: #888;">Live performances, art, and music curated for an unforgettable night.</p>
+  </div>
+  <div class="ent-grid">
+    <div class="ent-card">
+      <img src="/images/dj.jpg" alt="DJ performing at Nextplay event" class="ent-photo">
+      <div class="ent-info">
+        <div class="ent-name">Live DJ</div>
+      </div>
+    </div>
+    <div class="ent-card">
+      <img src="/images/singer-guitarist.jpg" alt="Singer and guitarist performing live at Nextplay event" class="ent-photo">
+      <div class="ent-info">
+        <div class="ent-name">Live Performer</div>
+      </div>
+    </div>
+    <div class="ent-card">
+      <img src="/images/live-painting.jpg" alt="Live painting at Nextplay event" class="ent-photo">
+      <div class="ent-info">
+        <div class="ent-name">Live Painting</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PARTNER ========== -->
+<section class="partner">
+  <div class="partner-grid">
+    <div class="partner-visual">
+      <img src="/images/group-backdrop.jpg" alt="Nextplay LIVE x Zillow team photo" class="partner-photo">
+      <div class="partner-logo-bar">
+        <span>Presented by</span>
+        <img src="/images/zillow-logo-white.svg" alt="Zillow logo">
+      </div>
+    </div>
+    <div class="partner-content">
+      <div class="section-label">Event Partner</div>
+      <h2 class="partner-title">Proudly Presented by <span>Zillow</span></h2>
+      <p class="partner-text">
+        Zillow Group is reimagining real estate to make home a reality for more and more people. As the most visited real estate website in the United States, Zillow and its affiliates help people find and get the homes they want by connecting them with digital solutions, dedicated partners and agents, and easier buying, selling, financing, and renting experiences.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== VENUE ========== -->
+<section class="venue" id="venue">
+  <div class="section-header" style="margin-bottom: 60px;">
+    <div class="section-label" style="color: var(--np-red);">Venue Details</div>
+    <h2 class="section-title" style="color: var(--np-dark);">The <em>Location</em></h2>
+  </div>
+  <div class="venue-grid">
+    <div class="venue-map">
+      <img src="/images/terraza-timberland.jpg" alt="Terraza Timberland rooftop venue in Mexico City" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div class="venue-details">
+      <h3>Event Information</h3>
+      <div class="venue-info-item">
+        <div class="venue-info-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <div>
+          <div class="venue-info-label">Date</div>
+          <div class="venue-info-value">April 16, 2026</div>
+        </div>
+      </div>
+      <div class="venue-info-item">
+        <div class="venue-info-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div>
+          <div class="venue-info-label">Time</div>
+          <div class="venue-info-value">6:00 PM &ndash; 10:00 PM (Local Time)</div>
+        </div>
+      </div>
+      <div class="venue-info-item">
+        <div class="venue-info-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="venue-info-label">Location</div>
+          <div class="venue-info-value">Terraza Timberland<br><span style="font-weight:400; color:#888; font-size:14px;">Pl. de la República 9, Tabacalera, Cuauhtémoc, 06030 Ciudad de México, CDMX</span></div>
+        </div>
+      </div>
+      <div class="venue-info-item">
+        <div class="venue-info-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div>
+          <div class="venue-info-label">Dress Code</div>
+          <div class="venue-info-value">Smart Casual</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FINAL CTA ========== -->
+<section class="final-cta">
+  <div class="final-cta-content">
+    <h2 class="final-cta-title">Your Next <em>Play</em> Starts Here.</h2>
+    <p class="final-cta-sub">Mexico City &mdash; April 16, 2026</p>
+    <a href="#rsvp" class="btn-hero-rsvp" onclick="openRSVP(event)">
+      RSVP Now
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ========== RSVP MODAL ========== -->
+<div class="rsvp-modal-overlay" id="rsvpModalOverlay">
+  <div class="rsvp-modal">
+    <button class="rsvp-modal-close" onclick="closeRSVP()">&times;</button>
+
+    <div id="rsvpForm">
+      <h2 class="rsvp-modal-title">RSVP</h2>
+      <p class="rsvp-modal-subtitle">Join us for an unforgettable evening in Mexico City</p>
+
+      <form class="rsvp-form" id="rsvpFormElement" onsubmit="submitRSVPForm(event)">
+        <div class="rsvp-error" id="rsvpError"></div>
+
+        <div class="rsvp-form-group">
+          <label>Name <span class="required">*</span></label>
+          <input type="text" name="name" required>
+        </div>
+
+        <div class="rsvp-form-group">
+          <label>Email <span class="required">*</span></label>
+          <input type="email" name="email" required>
+        </div>
+
+        <div class="rsvp-form-group">
+          <label>Job Title <span class="required">*</span></label>
+          <input type="text" name="jobTitle" required>
+        </div>
+
+        <div class="rsvp-form-group">
+          <label>Company <span class="required">*</span></label>
+          <input type="text" name="company" required>
+        </div>
+
+        <div class="rsvp-form-group full-width">
+          <label>LinkedIn Profile Link <span class="required">*</span></label>
+          <input type="text" name="linkedinProfile" required placeholder="linkedin.com/in/yourprofile">
+        </div>
+
+        <div class="rsvp-form-group">
+          <label>City <span class="required">*</span></label>
+          <input type="text" name="city" required>
+        </div>
+
+        <div class="rsvp-form-group">
+          <label>Are you interested in hearing about career opportunities? <span class="required">*</span></label>
+          <select name="careerOpportunities" required>
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <div class="rsvp-form-group">
+          <label>If yes, would you like to opt in to join the Zillow Talent Community?</label>
+          <select name="talentCommunity">
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <div class="rsvp-form-group full-width">
+          <label>Level <span class="required">*</span></label>
+          <select name="level" required>
+            <option value="">Select a level</option>
+            <option value="Entry">Entry</option>
+            <option value="Mid">Mid</option>
+            <option value="Senior">Senior</option>
+            <option value="Staff">Staff</option>
+            <option value="Principal">Principal</option>
+            <option value="Director">Director</option>
+            <option value="VP">VP</option>
+            <option value="C-Suite">C-Suite</option>
+          </select>
+        </div>
+
+        <div class="rsvp-form-group full-width">
+          <label>Business Unit <span class="required">*</span></label>
+          <select name="businessUnit" required>
+            <option value="">Select your business unit</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Sales">Sales</option>
+            <option value="Marketing">Marketing</option>
+            <option value="IT">IT</option>
+            <option value="Analytics">Analytics</option>
+            <option value="Design">Design</option>
+            <option value="Product/Program/Project Management">Product/Program/Project Management</option>
+            <option value="Finance">Finance</option>
+            <option value="Legal">Legal</option>
+            <option value="HR">HR</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="rsvp-form-group full-width">
+          <label>If engineer, please indicate your specialty(ies)</label>
+          <select name="engineerSpecialty">
+            <option value="">Select your specialty</option>
+            <option value="Front End">Front End</option>
+            <option value="Full Stack">Full Stack</option>
+            <option value="Back End">Back End</option>
+            <option value="Infrastructure & Cloud">Infrastructure & Cloud</option>
+            <option value="Security">Security</option>
+            <option value="IT">IT</option>
+            <option value="Data">Data</option>
+            <option value="Mobile - iOS | Android">Mobile - iOS | Android</option>
+            <option value="Product Design">Product Design</option>
+            <option value="Machine Learning">Machine Learning</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Embedded">Embedded</option>
+            <option value="Test & QA">Test & QA</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="rsvp-form-group">
+          <label>Are you open to relocation?</label>
+          <select name="relocation">
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Maybe">Maybe</option>
+          </select>
+        </div>
+
+        <div class="rsvp-form-group">
+          <label>Please indicate your level of English proficiency <span class="required">*</span></label>
+          <select name="englishProficiency" required>
+            <option value="">Select a level</option>
+            <option value="Native">Native</option>
+            <option value="Fluent">Fluent</option>
+            <option value="Advanced">Advanced</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Basic">Basic</option>
+          </select>
+        </div>
+
+        <div class="rsvp-form-group full-width">
+          <label>What's something you believe to be true or believe about working at Zillow?</label>
+          <textarea name="zillowBelief" placeholder="Share your thoughts..."></textarea>
+        </div>
+
+        <div class="rsvp-form-group full-width">
+          <label>What would you like to ask?</label>
+          <textarea name="questions" placeholder="Share any questions or comments..."></textarea>
+        </div>
+
+        <button type="submit" class="rsvp-form-submit">Submit RSVP</button>
+      </form>
+    </div>
+
+    <div class="rsvp-success" id="rsvpSuccess">
+      <div class="rsvp-success-icon">&#10003;</div>
+      <h3 class="rsvp-success-title">You're In!</h3>
+      <p class="rsvp-success-subtitle">Your RSVP has been confirmed</p>
+
+      <div class="rsvp-event-card">
+        <div class="rsvp-event-card-header">Event Details</div>
+        <div class="rsvp-event-detail">
+          <div class="rsvp-event-detail-icon">&#128197;</div>
+          <div class="rsvp-event-detail-content">
+            <div class="rsvp-event-detail-label">Date</div>
+            <div class="rsvp-event-detail-value">Thursday, April 16, 2026</div>
+          </div>
+        </div>
+        <div class="rsvp-event-detail">
+          <div class="rsvp-event-detail-icon">&#128336;</div>
+          <div class="rsvp-event-detail-content">
+            <div class="rsvp-event-detail-label">Time</div>
+            <div class="rsvp-event-detail-value">6:00 PM &ndash; 10:00 PM (CST)</div>
+          </div>
+        </div>
+        <div class="rsvp-event-detail">
+          <div class="rsvp-event-detail-icon">&#128205;</div>
+          <div class="rsvp-event-detail-content">
+            <div class="rsvp-event-detail-label">Location</div>
+            <div class="rsvp-event-detail-value">Mexico City</div>
+          </div>
+        </div>
+        <div class="rsvp-event-detail">
+          <div class="rsvp-event-detail-icon">&#127915;</div>
+          <div class="rsvp-event-detail-content">
+            <div class="rsvp-event-detail-label">Presented by</div>
+            <div class="rsvp-event-detail-value">Zillow</div>
+          </div>
+        </div>
+        <div class="rsvp-event-detail">
+          <div class="rsvp-event-detail-icon">&#127870;</div>
+          <div class="rsvp-event-detail-content">
+            <div class="rsvp-event-detail-label">Includes</div>
+            <div class="rsvp-event-detail-value">Complimentary food, drinks &amp; live entertainment</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rsvp-success-note">
+        <strong>Check your email</strong> &mdash; we've sent a confirmation with your personal QR code for seamless check-in at the door. Be sure to have it ready when you arrive!
+      </div>
+
+      <button class="rsvp-success-close" onclick="closeRSVP()">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <a href="https://nextplayevents.com" target="_blank" class="footer-logo" style="text-decoration:none;color:inherit;">NEXT<span>PLAY</span> LIVE</a>
+  <div class="footer-copy">&copy; 2026 Nextplay Events, LLC. All rights reserved.</div>
+  <div class="footer-socials">
+    <a href="https://x.com/nextplay_live?s=21" target="_blank">X</a>
+    <a href="https://www.instagram.com/nextplaylive" target="_blank">Instagram</a>
+    <a href="https://www.linkedin.com/company/nextplaycommunity/" target="_blank">LinkedIn</a>
+    <a href="https://www.facebook.com/nextplaycommunity/" target="_blank">Facebook</a>
+    <a href="https://www.youtube.com/channel/UCohAmQpM5VOlFs3nygtso_w/featured" target="_blank">YouTube</a>
+  </div>
+</footer>
+
+<!-- ========== COUNTDOWN SCRIPT ========== -->
+<script>
+  const eventDate = new Date('2026-04-16T18:00:00-06:00').getTime();
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const diff = eventDate - now;
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '00';
+      document.getElementById('cd-hours').textContent = '00';
+      document.getElementById('cd-mins').textContent = '00';
+      document.getElementById('cd-secs').textContent = '00';
+      return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Smooth nav background on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 100) {
+      nav.style.background = 'rgba(13,13,13,0.95)';
+    } else {
+      nav.style.background = 'rgba(13,13,13,0.6)';
+    }
+  });
+
+  // RSVP Modal Functions
+  function openRSVP(e) {
+    if (e) {
+      e.preventDefault();
+    }
+    const overlay = document.getElementById('rsvpModalOverlay');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeRSVP() {
+    const overlay = document.getElementById('rsvpModalOverlay');
+    overlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+
+    // Reset form and success state
+    document.getElementById('rsvpFormElement').reset();
+    document.getElementById('rsvpForm').style.display = 'block';
+    document.getElementById('rsvpSuccess').classList.remove('active');
+    document.getElementById('rsvpError').classList.remove('active');
+  }
+
+  function submitRSVPForm(e) {
+    e.preventDefault();
+
+    const form = document.getElementById('rsvpFormElement');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    const submitBtn = form.querySelector('.rsvp-form-submit');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    fetch('/.netlify/functions/rsvp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(result => {
+      // Show success state
+      document.getElementById('rsvpForm').style.display = 'none';
+      document.getElementById('rsvpSuccess').classList.add('active');
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      const errorDiv = document.getElementById('rsvpError');
+      errorDiv.textContent = 'There was an error submitting your RSVP. Please try again.';
+      errorDiv.classList.add('active');
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    });
+  }
+
+  // Close modal on ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeRSVP();
+    }
+  });
+
+  // Close modal when clicking outside
+  document.getElementById('rsvpModalOverlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('rsvpModalOverlay')) {
+      closeRSVP();
+    }
+  });
+</script>
+
+</body>
+</html>
