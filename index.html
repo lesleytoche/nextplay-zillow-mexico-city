@@ -591,6 +591,43 @@
     letter-spacing: 0.5px;
     color: var(--np-gold);
   }
+  .speaker-name a, .ent-name a {
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    transition: border-color 0.3s;
+  }
+  .speaker-name a:hover, .ent-name a:hover {
+    border-bottom-color: var(--np-gold);
+    color: var(--np-gold);
+  }
+  .speaker-bio {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+    background: rgba(0,0,0,0.95);
+    border-radius: 0 0 20px 20px;
+    padding: 0 24px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.8);
+  }
+  .speaker-bio.active {
+    max-height: 300px;
+    padding: 20px 24px;
+  }
+  .speaker-bio-toggle {
+    cursor: pointer;
+  }
+  .social-link {
+    display: inline-block;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    margin-top: 6px;
+    transition: color 0.3s;
+  }
+  .social-link:hover { color: var(--np-gold); }
 
   /* ========== ENTERTAINMENT ========== */
   .entertainment {
@@ -1415,17 +1452,20 @@
   </div>
   <div class="speakers-grid">
     <div class="speaker-card">
-      <img src="/images/speakers.jpg" alt="Speakers at Nextplay event" class="speaker-photo">
+      <img src="/images/speakers.jpg" alt="Sofia Vilchis, Data Scientist at Zillow" class="speaker-photo">
       <div class="speaker-info">
-        <div class="speaker-name">Speakers</div>
-        <div class="speaker-role">Industry leaders &amp; Zillow executives</div>
+        <div class="speaker-name speaker-bio-toggle" onclick="document.getElementById('sofiaBio').classList.toggle('active')"><a href="https://www.linkedin.com/in/sofia-vilchis-606690225/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Sofia Vilchis</a></div>
+        <div class="speaker-role">Data Scientist, Zillow</div>
+      </div>
+      <div class="speaker-bio" id="sofiaBio">
+        Sofia Vilchis is a Data Scientist at Zillow, where she specializes in product analytics and A/B experimentation to improve the home-buying experience through data-driven decisions. She holds a degree in Nanotechnology Engineering and a Master's in Data Science from ITESO, and has over five years of experience in the data industry, including roles in fintech focused on risk modeling, NLP, and advanced analytics.
       </div>
     </div>
     <div class="speaker-card">
-      <img src="/images/host-mc.jpg" alt="Host at Nextplay event" class="speaker-photo">
+      <img src="/images/host-mc.jpg" alt="Julio Saenz, Senior Director of Engineering at Zillow" class="speaker-photo">
       <div class="speaker-info">
-        <div class="speaker-name">Event Host</div>
-        <div class="speaker-role">Your MC for the evening</div>
+        <div class="speaker-name"><a href="https://www.linkedin.com/in/julio-saenz-7a619b2/" target="_blank" rel="noopener">Julio Saenz</a></div>
+        <div class="speaker-role">Senior Director, Engineering &amp; Mexico Country Lead</div>
       </div>
     </div>
   </div>
@@ -1440,21 +1480,27 @@
   </div>
   <div class="ent-grid">
     <div class="ent-card">
-      <img src="/images/dj.jpg" alt="DJ performing at Nextplay event" class="ent-photo">
+      <img src="/images/dj.jpg" alt="DJ Major League performing at Nextplay event" class="ent-photo">
       <div class="ent-info">
-        <div class="ent-name">Live DJ</div>
+        <div class="ent-name">DJ Major League</div>
+        <div class="ent-role">Live DJ</div>
+        <a href="https://www.instagram.com/djmajorleague100/" target="_blank" rel="noopener" class="social-link">@djmajorleague100</a>
       </div>
     </div>
     <div class="ent-card">
-      <img src="/images/singer-guitarist.jpg" alt="Singer and guitarist performing live at Nextplay event" class="ent-photo">
+      <img src="/images/singer-guitarist.jpg" alt="Producciones Mestizo performing live at Nextplay event" class="ent-photo">
       <div class="ent-info">
-        <div class="ent-name">Live Performer</div>
+        <div class="ent-name">Producciones Mestizo</div>
+        <div class="ent-role">Live Performer</div>
+        <a href="https://www.instagram.com/producciones.mestizo?igsh=MXBydmlvYXVtY2Q5aw%3D%3D" target="_blank" rel="noopener" class="social-link">@producciones.mestizo</a>
       </div>
     </div>
     <div class="ent-card">
-      <img src="/images/live-painting.jpg" alt="Live painting at Nextplay event" class="ent-photo">
+      <img src="/images/live-painting.jpg" alt="Jessica Shilling live painting at Nextplay event" class="ent-photo">
       <div class="ent-info">
-        <div class="ent-name">Live Painting</div>
+        <div class="ent-name">Jessica Shilling</div>
+        <div class="ent-role">Live Painting</div>
+        <a href="https://www.instagram.com/jessica_shilling_/" target="_blank" rel="noopener" class="social-link">@jessica_shilling_</a>
       </div>
     </div>
   </div>
