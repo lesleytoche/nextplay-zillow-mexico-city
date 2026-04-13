@@ -247,7 +247,7 @@ const sendConfirmationEmail = async (name, email, checkInToken) => {
                   <strong>Date:</strong> April 16, 2026
                 </div>
                 <div class="event-detail-item">
-                  <strong>Time:</strong> 6:00 PM - 10:00 PM
+                  <strong>Time:</strong> 6:30 PM - 9:30 PM
                 </div>
                 <div class="event-detail-item">
                   <strong>Location:</strong> Mexico City
